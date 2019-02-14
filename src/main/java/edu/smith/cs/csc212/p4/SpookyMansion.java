@@ -36,11 +36,21 @@ public class SpookyMansion implements GameWorld {
 						"You get the sense a secret is nearby, but you only see the stairs you came from."
 						));
 		basement.addExit(new Exit("entranceHall", "There are stairs leading up."));
-
+		basement.addExit(new Exit("abandonedRoom", "You have found the gaming room"));
+		
+		Place abandonedRoom = insert(Place.create("abandonedRoom", "You turn on the light and you find an abandoned room with funiture with sheets covering it"));
+		abandonedRoom.addExit(new Exit("basement","Its creepy in this room, go back to the basement"));
+		
+		
 		Place attic = insert(Place.create("attic",
 				"Something rustles in the rafters as you enter the attic. Creepy.\n" + "It's big up here."));
 		attic.addExit(new Exit("entranceHall", "There are stairs leading down."));
+		attic.addExit(new Exit("storageRoom", "You have found the storage room"));
 		attic.addExit(new Exit("attic2", "There is more through an archway"));
+		
+		Place storageRoom = insert(Place.create("storageRoom","You find a bunch of dusty boxes"));
+		storageRoom.addExit(new Exit("attic","There are stairs leading down"));
+		
 
 		Place attic2 = insert(Place.create("attic2", "There's definitely a bat in here somewhere.\n"
 				+ "This part of the attic is brighter, so maybe you're safe here."));
@@ -57,11 +67,12 @@ public class SpookyMansion implements GameWorld {
 		
 		Place secretRoom = insert(Place.create("secretRoom", "You have found the secret room."));
 		secretRoom.addExit(new Exit("hallway0", "There is a long hallway."));
+		secretRoom.addExit(new Exit("basement","You've now entered the basement"));
 		
-		int hallwayDepth = 3;
+		int hallwayDepth = 5;
 		int lastHallwayPart = hallwayDepth - 1;
 		for (int i=0; i<hallwayDepth; i++) {
-			Place hallwayPart = insert(Place.create("hallway"+i, "This is a very long hallway."));
+			Place hallwayPart = insert(Place.create("hallway"+i, "You have gone " + (i+1) + " steps into the hallway"));
 			if (i == 0) {
 				hallwayPart.addExit(new Exit("secretRoom", "Go back."));
 			} else {
