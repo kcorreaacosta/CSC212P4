@@ -15,6 +15,10 @@ public class Place {
 	 */
 	private List<Exit> exits;
 	/**
+	 * making secret exits into a list
+	 */
+	private List <SecretExit> SecretExits;
+	/**
 	 * This is the identifier of the place.
 	 */
 	private String id;
@@ -33,11 +37,15 @@ public class Place {
 	 * @param description - the user-facing description of the place.
 	 * @param terminal - whether this place ends the game.
 	 */
-	private Place(String id, String description, boolean terminal) {
+	public Place(String id, String description, boolean terminal) {
 		this.id = id;
 		this.description = description;
 		this.exits = new ArrayList<>();
 		this.terminal = terminal;
+	/**
+	 * secret exits are made into an list	
+	 */
+		this.SecretExits = new ArrayList<>();
 	}
 	
 	/**
@@ -68,7 +76,12 @@ public class Place {
 	 * The narrative description of this place.
 	 * @return what we show to a player about this place.
 	 */
-	public String getDescription() {
+	/**
+	 * takes in GameTime in order to print the description based the time of day
+	 * @param time
+	 * @return
+	 */
+	public String printDescription(GameTime time) {
 		return this.description;
 	}
 
@@ -76,10 +89,28 @@ public class Place {
 	 * Get a view of the exits from this Place, for navigation.
 	 * @return all the exits from this place.
 	 */
-	public List<Exit> getVisibleExits() {
-		return Collections.unmodifiableList(exits);
-	}
 	
+	public List<Exit> getVisibleExits(){
+	
+	/**
+	 * this code takes the list of all the exits and loops through it in order to
+	 *  add in the secret Exits to a new list. I made a temp class in order for eclipse 
+	 *  not to get mad about my list looping through to remove and add.
+	 */
+	List <Exit> temp = new ArrayList<>();
+	for(Exit e : this.exits) {
+			if(e.isSecret() != true) {
+				temp.add(e);
+			}	
+	}
+	return temp;
+}
+
+	public void search() {
+		for(Exit e : exits) {
+			e.search();
+		}
+	}
 	/**
 	 * This is a terminal location (good or bad).
 	 * @param id - this is the id of the place (for creating {@link Exit} objects that go here).

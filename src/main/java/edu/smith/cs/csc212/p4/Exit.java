@@ -16,7 +16,14 @@ public class Exit {
 	 * How do we identify the Place that this is going.
 	 */
 	private String target;
+	/**
+	 * making boolean for isSecret in SecretExit
+	 */
 	
+	public boolean isSecret(){
+		return false;
+	}
+
 	/**
 	 * Create a new Exit.
 	 * @param target - where it goes.
@@ -75,5 +82,9 @@ public class Exit {
 			return this.target.equals(rhs.target) && this.description.equals(rhs.description); 
 		}
 		return false;
+	}
+	
+	public void search() {
+		
 	}
 }

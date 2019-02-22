@@ -3,6 +3,10 @@ package edu.smith.cs.csc212.p4;
 import java.util.List;
 
 /**
+ * I went to TA hours, discussed with Ileanna and Anabel, and code from Piazza and help from JJ
+ */
+
+/**
  * This is our main class for P4. It interacts with a GameWorld and handles user-input.
  * @author jfoley
  *
@@ -17,25 +21,34 @@ public class InteractiveFiction {
 		// This is a text input source (provides getUserWords() and confirm()).
 		TextInput input = TextInput.fromArgs(args);
 
+		
 		// This is the game we're playing.
-		GameWorld game = new SpookyMansion();
+		GameWorld game = new MorrowHouse();
+			
+		/**
+		 * creating an object for time
+		 */
+		GameTime time = new GameTime(0,0);
 		
 		// This is the current location of the player (initialize as start).
 		// Maybe we'll expand this to a Player object.
 		String place = game.getStart();
 
+	
+		
 		// Play the game until quitting.
 		// This is too hard to express here, so we just use an infinite loop with breaks.
 		while (true) {
 			// Print the description of where you are.
 			Place here = game.getPlace(place);
-			System.out.println(here.getDescription());
+			System.out.println(here.printDescription(time));
 
 			// Game over after print!
 			if (here.isTerminalState()) {
 				break;
 			}
 
+			
 			// Show a user the ways out of this place.
 			List<Exit> exits = here.getVisibleExits();
 			
@@ -63,30 +76,51 @@ public class InteractiveFiction {
 				} else {
 					continue;
 				}
+				
+				/**
+				 * the user to see the secret exits when they type out search
+				 */
+			} else if ( action.contentEquals("search") ) {
+				here.search();
 			}
-			
-			
-			// From here on out, what they typed better be a number!
-			Integer exitNum = null;
-			try {
-				exitNum = Integer.parseInt(action);
-			} catch (NumberFormatException nfe) {
-				System.out.println("That's not something I understand! Try a number!");
-				continue;
-			}
-			
-			if (exitNum < 0 || exitNum > exits.size()) {
-				System.out.println("I don't know what to do with that number!");
-				continue;
-			}
+			else {
+				// From here on out, what they typed better be a number!
+				Integer exitNum = null;
+				try {
+					exitNum = Integer.parseInt(action);
+				} catch (NumberFormatException nfe) {
+					System.out.println("That's not something I understand! Try a number!");
+					continue;
+				}
+				
+				if (exitNum < 0 || exitNum > exits.size()) {
+					System.out.println("I don't know what to do with that number!");
+					continue;
+				}
 
-			// Move to the room they indicated.
-			Exit destination = exits.get(exitNum);
-			place = destination.getTarget();
+				// Move to the room they indicated.
+				Exit destination = exits.get(exitNum);
+				place = destination.getTarget();
+			}
+			/**
+			 * makes the secret exits to be visible to user if they type in 'search'
+			 */
+
+			
+			/**
+			 * calling both methods into the actual game
+			 */
+			time.increaseHour();
+			time.increaseHours();
 		}
 
 		// You get here by "quit" or by reaching a Terminal Place.
 		System.out.println(">>> GAME OVER <<<");
+		
+		/**
+		 * prints out time that has pasted at the end of the game
+		 */
+		System.out.println(time.getHours() + " hours have past!");
 	}
 
 }
