@@ -84,6 +84,9 @@ public class Exit {
 		return false;
 	}
 	
+	/**
+	 * calls search method 
+	 */
 	public void search() {
 		
 	}

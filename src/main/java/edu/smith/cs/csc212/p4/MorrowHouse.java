@@ -11,11 +11,16 @@ public class MorrowHouse implements GameWorld{
 			// front door from quad view
 			return "frontQuad";
 		}
-
+/**
+ * this constructor makes our game, with new places and exits
+ */
 public MorrowHouse() {
 	Place frontQuad = insert(
 			Place.create("frontQuad","Welcome to Morrow House, you have walked in from the Quad" ));
 	frontQuad.addExit(new Exit("parlor", "Go left to the Parlor. Enter if you Dare, no one ever goes in"));
+	/**
+	 * Secret Exit is only shown when search is typed in console
+	 */
 	frontQuad.addExit(new SecretExit("LivingRoom", "Go right to the Living Room."));
 	frontQuad.addExit(new Exit("upstairs", "Go up the stairs"));
 	
@@ -24,6 +29,9 @@ public MorrowHouse() {
 	parlor.addExit(new Exit("diningHall", "Abanonded Dining Hall, yes please"));
 	parlor.addExit(new Exit("frontQuad", "Go back to the main entrance"));
 
+	/**
+	 * adds the dining hall to a Night Place, has two descriptions one for night and one for day
+	 */
 	NightPlaces diningHall = (NightPlaces) insert(
 			NightPlaces.makenew("diningHall","Is this a dining hall? Seems empty","Old abanonded, old abanonded dining Hall at your your services" ));
 	diningHall.addExit(new Exit("WilsonKitchen", "Huh? How'd I get to another house?"));

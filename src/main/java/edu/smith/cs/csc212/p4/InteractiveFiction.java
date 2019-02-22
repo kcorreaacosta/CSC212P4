@@ -84,6 +84,10 @@ public class InteractiveFiction {
 				here.search();
 			}
 			else {
+				/**
+				 * I forgot to comment this automatically but I do remember
+				 *  that this was changed under TAs suggestion in order to fix my errors in SecretExit
+				 */
 				// From here on out, what they typed better be a number!
 				Integer exitNum = null;
 				try {
@@ -102,10 +106,6 @@ public class InteractiveFiction {
 				Exit destination = exits.get(exitNum);
 				place = destination.getTarget();
 			}
-			/**
-			 * makes the secret exits to be visible to user if they type in 'search'
-			 */
-
 			
 			/**
 			 * calling both methods into the actual game

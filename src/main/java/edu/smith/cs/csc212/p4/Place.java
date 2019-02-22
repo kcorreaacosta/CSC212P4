@@ -105,7 +105,9 @@ public class Place {
 	}
 	return temp;
 }
-
+	/**
+	 * makes the search method
+	 */
 	public void search() {
 		for(Exit e : exits) {
 			e.search();
